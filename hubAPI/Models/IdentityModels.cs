@@ -29,5 +29,7 @@ namespace hubAPI.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<hubAPI.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

@@ -16,14 +16,26 @@ namespace hubAPI
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            config.Formatters.XmlFormatter.UseXmlSerializer = true;
 
             // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "ControllerOnly",
+                routeTemplate: "api/{controller}"
+            );
+
+            //config.Routes.MapHttpRoute(
+            //    name: "ControllerWithId",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
+
+            config.Routes.MapHttpRoute(
+            name: "ControllerAndAction",
+            routeTemplate: "api/{controller}/{action}",
+            defaults: new { id = RouteParameter.Optional }
             );
         }
     }

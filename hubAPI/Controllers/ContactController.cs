@@ -17,10 +17,16 @@ namespace hubAPI.Controllers
     {
         private static readonly IimohubRepository _patient = new imohubRepository("mongodb://localhost:27017");
 
-        public IQueryable<Patient> Get()
+        public String Index()
         {
-            var rt = _patient.GetAllPatients().AsQueryable();
-            return rt;
+            return "value";
+        }
+
+        public String Get()
+        {
+            //var rt = _patient.GetAllPatients().AsQueryable();
+            //return rt;
+            return "value";
         }
 
         public Patient Get(string name)

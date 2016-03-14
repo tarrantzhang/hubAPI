@@ -1,39 +1,49 @@
-﻿<div id="body">
-    <ul id="contacts"></ul>
-    <form id="saveContactForm" method="post">
-        <h3>Create a new Contact</h3>
-        <p>
-            <label for="first name">First:</label>
-            <input type="text" name="Name[]" />
-        </p>
-        <p>
-            <label for="contactName">Last:</label>
-            <input type="text" name="Name[]" />
-        </p>
-        <input type="button" id="saveContact" value="Save" />
-    </form>
-</div>
-@section scripts{
-    <script type="text/javascript">
-$(function()
-{
-        $.getJSON('/api/imohub', function(contactsJsonPayload)
-        {
-            $(contactsJsonPayload).each(function(i, item)
-            {
-                $('#contacts').append('<li>' + item + '</li>');
+﻿<p>Choose the file to upload.</p>
+<select id="file_type">
+    <option value="json">Json</option>
+    <option value="xml">Xml</option>
+    <option value="xsl">Excel</option>
+</select>
+<select id="content_type">
+    <option value="Patients">Patient</option>
+    <option value="Prescription">Prescription</option>
+</select>
+<input type="file" name="pic" id="file-input" accept=".json, .xml">
+<h3>Contents of the file:</h3>
+<pre id="file-content"></pre>
+
+<script type="text/javascript">
+    function readSingleFile(e) {
+        var file = e.target.files[0];
+        if (!file) {
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var contents = e.target.result;
+            displayContents(contents);
+            var contentType = document.getElementById('content_type');
+            var fileType = document.getElementById('file_type');
+            var contentTypeStr = contentType.options[contentType.selectedIndex].value;
+            var fileTypeStr = fileType.options[fileType.selectedIndex].value;
+            var apiUrl = 'http://localhost:49715/api/'.concat(contentTypeStr, "/", fileTypeStr);
+            $.ajax({
+                url: apiUrl,
+                contentType: "application/".concat(fileTypeStr),
+                type: 'put',
+                success: function (data) {
+                    alert("succeed!")
+                },
+                data: contents
             });
-        });
-});
-$('#saveContact').click(function () {
-    console.log($("#saveContactForm").serialize())
-    $.post("api/imohub",
-          $("#saveContactForm").serialize(),
-          function (value) {
-              $('#contacts').append('<li>' + value.Name + '</li>');
-          },
-          "json"
-    );
-});
-    </script>
-}
+        };
+        reader.readAsText(file);
+    }
+    function displayContents(contents) {
+        var element = document.getElementById('file-content');
+        element.innerHTML = contents;
+    }
+
+    document.getElementById('file-input').addEventListener('change', readSingleFile, false);
+    
+</script>

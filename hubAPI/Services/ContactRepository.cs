@@ -42,16 +42,6 @@ public class imohubRepository: IimohubRepository
             _database = _client.GetDatabase("spark");
             _patient = _database.GetCollection<Patient>("resources");
 
-           //for (int index = 1; index< 2; index++)
-           //{
-           //    Contact patient1 = new Patient
-           //    {
-           //        Email = string.Format("test{0}@example.com", index),
-           //        Name = string.Format("test{0}", index),
-           //        Phone = string.Format("{0}{0}{0} {0}{0}{0} {0}{0}{0}{0}", index)
-           //    };
-           //     AddPatient(patient1);
-           //}
        }
 
     public IEnumerable<Patient> GetAllPatients()
