@@ -26,10 +26,14 @@
             var fileType = document.getElementById('file_type');
             var contentTypeStr = contentType.options[contentType.selectedIndex].value;
             var fileTypeStr = fileType.options[fileType.selectedIndex].value;
+            if (fileTypeStr == "xsl")
+                headerContentTypeStr = "multipart/form-data";
+            else
+                headerContentTypeStr = "application/".concat(fileTypeStr);
             var apiUrl = 'http://localhost:49715/api/'.concat(contentTypeStr, "/", fileTypeStr);
             $.ajax({
                 url: apiUrl,
-                contentType: "application/".concat(fileTypeStr),
+                contentType: headerContentTypeStr,
                 type: 'put',
                 success: function (data) {
                     alert("succeed!")

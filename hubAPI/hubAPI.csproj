@@ -261,6 +261,9 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Services\ContactRepository.cs" />
+    <Compile Include="Services\excelObjects.cs" />
+    <Compile Include="Services\fhir2sql.cs" />
+    <Compile Include="Services\xxx2fhir.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

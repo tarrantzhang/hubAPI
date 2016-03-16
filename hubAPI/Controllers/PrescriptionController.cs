@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Xml;
 
-namespace WebApplication1.Controllers
+namespace hubAPI.Controllers
 {
     public class PrescriptionController : ApiController
     {
